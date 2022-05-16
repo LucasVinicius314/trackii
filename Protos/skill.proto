@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option csharp_namespace = "Trackii";
+
+option java_multiple_files = true;
+option java_package = "io.grpc.sure.trackii";
+option java_outer_classname = "TrackiiProto";
+
+option objc_class_prefix = "HLW";
+
+package skill;
+
+service SkillService {
+  rpc GetSkill (SkillRequest) returns (SkillReply);
+}
+
+message SkillRequest {
+  string name = 1;
+}
+
+message SkillReply {
+  string message = 1;
+}

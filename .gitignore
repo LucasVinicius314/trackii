@@ -2,3 +2,5 @@ obj
 bin
 
 service-account-key.json
+
+.env
