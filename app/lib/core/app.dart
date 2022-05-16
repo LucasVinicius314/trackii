@@ -8,6 +8,15 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Trackii',
+      theme: ThemeData.dark().copyWith(
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ButtonStyle(
+            padding: MaterialStateProperty.all(
+              const EdgeInsets.all(16),
+            ),
+          ),
+        ),
+      ),
       routes: {
         MainPage.route: (context) => const MainPage(),
       },

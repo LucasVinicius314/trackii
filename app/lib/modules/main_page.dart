@@ -12,41 +12,47 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  Future<void> _test() async {
+    // TODO: fix
+
+    final channel = ClientChannel(
+      'localhost',
+      port: 5284,
+      options: ChannelOptions(
+        credentials: const ChannelCredentials.insecure(),
+        codecRegistry:
+            CodecRegistry(codecs: const [GzipCodec(), IdentityCodec()]),
+      ),
+    );
+
+    final stub = SkillServiceClient(channel);
+
+    const name = 'world';
+
+    try {
+      final response = await stub.getSkill(
+        SkillRequest()..name = name,
+        options: CallOptions(compression: const GzipCodec()),
+      );
+
+      print('Greeter client received: ${response.message}');
+    } catch (e) {
+      print('Caught error: $e');
+    }
+
+    await channel.shutdown();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ElevatedButton(
-        child: const Text('Test'),
-        onPressed: () async {
-          // TODO: fix
-
-          final channel = ClientChannel(
-            'localhost',
-            port: 5284,
-            options: ChannelOptions(
-              credentials: const ChannelCredentials.insecure(),
-              codecRegistry:
-                  CodecRegistry(codecs: const [GzipCodec(), IdentityCodec()]),
-            ),
-          );
-
-          final stub = SkillServiceClient(channel);
-
-          const name = 'world';
-
-          try {
-            final response = await stub.getSkill(
-              SkillRequest()..name = name,
-              options: CallOptions(compression: const GzipCodec()),
-            );
-
-            print('Greeter client received: ${response.message}');
-          } catch (e) {
-            print('Caught error: $e');
-          }
-
-          await channel.shutdown();
-        },
+      appBar: AppBar(title: const Text('Trackii')),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: ElevatedButton(
+          onPressed: _test,
+          child: const Text('Test'),
+        ),
       ),
     );
   }
