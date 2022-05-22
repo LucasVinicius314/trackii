@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package auth;
+
+import "user/user.proto";
+
+option csharp_namespace = "Trackii";
+
+option java_multiple_files = true;
+option java_package = "io.grpc.sure.trackii";
+option java_outer_classname = "TrackiiProto";
+
+option objc_class_prefix = "TRK";
+
+service AuthService {
+  rpc Login (LoginRequest) returns (LoginResponse);
+  rpc Register (RegisterRequest) returns (RegisterResponse);
+}
+
+message LoginRequest {
+  string name = 1;
+}
+
+message LoginResponse {
+  user.User user = 1;
+}
+
+message RegisterRequest {
+  string name = 1;
+}
+
+message RegisterResponse {
+  user.User user = 1;
+}

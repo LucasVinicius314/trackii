@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grpc/grpc.dart';
-import 'package:trackii/generated/skill.pbgrpc.dart';
+import 'package:trackii/generated/skill/skill.pbgrpc.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -30,12 +30,12 @@ class _MainPageState extends State<MainPage> {
     const name = 'world';
 
     try {
-      final response = await stub.getSkill(
-        SkillRequest()..name = name,
+      final response = await stub.createSkill(
+        CreateSkillRequest()..name = name,
         options: CallOptions(compression: const GzipCodec()),
       );
 
-      print('Greeter client received: ${response.message}');
+      print('Greeter client received: ${response.skill}');
     } catch (e) {
       print('Caught error: $e');
     }
