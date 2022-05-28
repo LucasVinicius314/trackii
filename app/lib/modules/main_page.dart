@@ -1,6 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:grpc/grpc.dart';
 import 'package:trackii/generated/skill/skill.pbgrpc.dart';
+import 'package:trackii/utils/grpc.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -12,47 +15,63 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  Future<void> _test() async {
+  Future<void> _ping() async {
     // TODO: fix
 
-    final channel = ClientChannel(
-      'localhost',
-      port: 5284,
-      options: ChannelOptions(
-        credentials: const ChannelCredentials.insecure(),
-        codecRegistry:
-            CodecRegistry(codecs: const [GzipCodec(), IdentityCodec()]),
-      ),
-    );
-
-    final stub = SkillServiceClient(channel);
+    final stubChannel = Grpc.getSkillServiceStubChannel;
 
     const name = 'world';
 
     try {
-      final response = await stub.createSkill(
+      final response = await stubChannel.stub.createSkill(
         CreateSkillRequest()..name = name,
         options: CallOptions(compression: const GzipCodec()),
       );
 
-      print('Greeter client received: ${response.skill}');
+      if (kDebugMode) {
+        print('Greeter client received: ${response.skill}');
+      }
     } catch (e) {
-      print('Caught error: $e');
+      if (kDebugMode) {
+        print('Caught error: $e');
+      }
     }
 
-    await channel.shutdown();
+    await stubChannel.channel.shutdown();
+  }
+
+  Future<void> _login() async {
+    // TODO: fix
+
+    // FirebaseAuth.instance.
+
+    final res = await GoogleSignIn().signIn();
+
+    res.toString();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Trackii')),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: ElevatedButton(
-          onPressed: _test,
-          child: const Text('Test'),
-        ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: ElevatedButton(
+              onPressed: _ping,
+              child: const Text('Ping server'),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: ElevatedButton(
+              onPressed: _login,
+              child: const Text('Login'),
+            ),
+          ),
+        ],
       ),
     );
   }
