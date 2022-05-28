@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package info;
+
+option csharp_namespace = "Trackii";
+
+option java_multiple_files = true;
+option java_package = "io.grpc.sure.trackii";
+option java_outer_classname = "TrackiiProto";
+
+option objc_class_prefix = "TRK";
+
+service InfoService {
+  rpc Version (VersionRequest) returns (VersionResponse);
+}
+
+message VersionRequest {
+  string version = 1;
+}
+
+message VersionResponse {
+  bool is_valid = 1;
+  string message = 2;
+  string current = 3;
+}
+

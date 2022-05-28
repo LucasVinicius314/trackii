@@ -18,12 +18,6 @@ class AuthServiceClient extends $grpc.Client {
       '/auth.AuthService/Login',
       ($0.LoginRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $0.LoginResponse.fromBuffer(value));
-  static final _$register =
-      $grpc.ClientMethod<$0.RegisterRequest, $0.RegisterResponse>(
-          '/auth.AuthService/Register',
-          ($0.RegisterRequest value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) =>
-              $0.RegisterResponse.fromBuffer(value));
 
   AuthServiceClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -33,11 +27,6 @@ class AuthServiceClient extends $grpc.Client {
   $grpc.ResponseFuture<$0.LoginResponse> login($0.LoginRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$login, request, options: options);
-  }
-
-  $grpc.ResponseFuture<$0.RegisterResponse> register($0.RegisterRequest request,
-      {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$register, request, options: options);
   }
 }
 
@@ -52,13 +41,6 @@ abstract class AuthServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.LoginRequest.fromBuffer(value),
         ($0.LoginResponse value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.RegisterRequest, $0.RegisterResponse>(
-        'Register',
-        register_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) => $0.RegisterRequest.fromBuffer(value),
-        ($0.RegisterResponse value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.LoginResponse> login_Pre(
@@ -66,13 +48,6 @@ abstract class AuthServiceBase extends $grpc.Service {
     return login(call, await request);
   }
 
-  $async.Future<$0.RegisterResponse> register_Pre(
-      $grpc.ServiceCall call, $async.Future<$0.RegisterRequest> request) async {
-    return register(call, await request);
-  }
-
   $async.Future<$0.LoginResponse> login(
       $grpc.ServiceCall call, $0.LoginRequest request);
-  $async.Future<$0.RegisterResponse> register(
-      $grpc.ServiceCall call, $0.RegisterRequest request);
 }

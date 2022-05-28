@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package auth;
 
-import "user/user.proto";
+import "Protos/user/user.proto";
 
 option csharp_namespace = "Trackii";
 
@@ -14,21 +14,16 @@ option objc_class_prefix = "TRK";
 
 service AuthService {
   rpc Login (LoginRequest) returns (LoginResponse);
-  rpc Register (RegisterRequest) returns (RegisterResponse);
 }
 
 message LoginRequest {
-  string name = 1;
+  string account_id = 1;
+  string display_name = 2;
+  string email = 3;
+  string access_token = 4;
 }
 
 message LoginResponse {
   user.User user = 1;
 }
 
-message RegisterRequest {
-  string name = 1;
-}
-
-message RegisterResponse {
-  user.User user = 1;
-}

@@ -10,11 +10,17 @@ public class ProtoSkillService : SkillService.SkillServiceBase
     _logger = logger;
   }
 
-  public override Task<SkillReply> GetSkill(SkillRequest request, ServerCallContext context)
+  public override Task<CreateSkillResponse> CreateSkill(CreateSkillRequest request, ServerCallContext context)
   {
-    return Task.FromResult(new SkillReply
+    return Task.FromResult(new CreateSkillResponse
     {
-      Message = "Hello " + request.Name
+      Skill = new Skill
+      {
+        Name = "Test",
+        Description = "Description",
+        ElapsedTime = 0,
+        SkillGroupId = 0,
+      },
     });
   }
 }

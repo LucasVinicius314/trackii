@@ -1,4 +1,6 @@
 import 'package:grpc/grpc.dart';
+import 'package:trackii/generated/auth/auth.pbgrpc.dart';
+import 'package:trackii/generated/info/info.pbgrpc.dart';
 import 'package:trackii/generated/skill/skill.pbgrpc.dart';
 
 class Grpc {
@@ -12,6 +14,24 @@ class Grpc {
           codecs: const [GzipCodec(), IdentityCodec()],
         ),
       ),
+    );
+  }
+
+  static StubChannel<AuthServiceClient> get getAuthServiceStubChannel {
+    final newChannel = channel;
+
+    return StubChannel<AuthServiceClient>(
+      stub: AuthServiceClient(newChannel),
+      channel: newChannel,
+    );
+  }
+
+  static StubChannel<InfoServiceClient> get getInfoServiceStubChannel {
+    final newChannel = channel;
+
+    return StubChannel<InfoServiceClient>(
+      stub: InfoServiceClient(newChannel),
+      channel: newChannel,
     );
   }
 

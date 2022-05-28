@@ -7,21 +7,27 @@ A skill tracking app.
 #### Entities
 
 * User
-  + name string
+  + id int
+  + accountId string
+  + displayName string
+  + email string
 
 * SkillGroup
+  + id int
   + name string
   + priority int
   + skillGroupId int?
   + userId long
 
 * Skill
+  + id int
   + description string?
   + name string
   + skillGroupId int?
   + calculated: elapsedTime
 
 * Goals
+  + id int
   + achieved bool
   + completionDate Date?
   + description string?
@@ -31,12 +37,14 @@ A skill tracking app.
   + calculated: elapsedTime long
 
 * Session
+  + id int
   + description?
   + endDate Date?
   + startDate Date?
   + calculated: elapsedTime long
 
 * Attachment
+  + id int
   + description?
   + endDate Date?
   + sessionId int
@@ -51,4 +59,4 @@ A skill tracking app.
 
 ### Generate dart protocol buffers
 
-    protoc --dart_out=grpc:app/lib/generated -Iprotos protos/auth/auth.proto -Iprotos protos/skill/skill.proto -Iprotos protos/user/user.proto
+    protoc --dart_out=grpc:app/lib/generated -Iprotos protos/auth/auth.proto -Iprotos protos/info/info.proto -Iprotos protos/skill/skill.proto -Iprotos protos/user/user.proto

@@ -11,5 +11,8 @@ option java_outer_classname = "TrackiiProto";
 option objc_class_prefix = "TRK";
 
 message User {
-  string name = 1;
+  int64 id = 1;
+  string account_id = 2;
+  string display_name = 3;
+  string email = 4;
 }
