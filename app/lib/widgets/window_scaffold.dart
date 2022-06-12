@@ -22,15 +22,15 @@ class WindowScaffold extends StatelessWidget {
                 children: [
                   Expanded(child: MoveWindow()),
                   MinimizeWindowButton(
-                    animate: true,
+                    animate: false,
                     colors: colors,
                   ),
                   MaximizeWindowButton(
-                    animate: true,
+                    animate: false,
                     colors: colors,
                   ),
                   CloseWindowButton(
-                    animate: true,
+                    animate: false,
                     colors: colors,
                   ),
                 ],

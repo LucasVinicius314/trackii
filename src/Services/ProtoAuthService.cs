@@ -1,3 +1,4 @@
+using FirebaseAdmin.Auth;
 using Grpc.Core;
 
 namespace Trackii.Services;
@@ -10,11 +11,19 @@ public class ProtoAuthService : AuthService.AuthServiceBase
     _logger = logger;
   }
 
-  public override Task<LoginResponse> Login(LoginRequest request, ServerCallContext context)
+  public override async Task<LoginResponse> Login(LoginRequest request, ServerCallContext context)
   {
-    return Task.FromResult(new LoginResponse
+    var token = request.AccessToken;
+
+    var instance = FirebaseAuth.DefaultInstance;
+
+    var res = await instance.VerifyIdTokenAsync(token);
+
+    var userId = res.Uid;
+
+    return new LoginResponse
     {
       User = new User { AccountId = request.AccountId, DisplayName = request.DisplayName, Email = request.Email, Id = 0 }
-    });
+    };
   }
 }

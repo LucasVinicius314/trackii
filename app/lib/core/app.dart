@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trackii/modules/login_page.dart';
 import 'package:trackii/modules/main_page.dart';
 import 'package:trackii/modules/splash_page.dart';
 
@@ -63,6 +64,7 @@ class App extends StatelessWidget {
       theme: _getTheme(),
       routes: {
         SplashPage.route: (context) => const SplashPage(),
+        LoginPage.route: (context) => const LoginPage(),
         MainPage.route: (context) => const MainPage(),
       },
     );

@@ -1,3 +1,4 @@
+using FirebaseAdmin;
 using Trackii.Services;
 
 namespace Trackii;
@@ -6,6 +7,8 @@ class Program
 {
   public static void Main(String[] args)
   {
+    FirebaseApp.Create();
+
     var builder = WebApplication.CreateBuilder(args);
 
     // Additional configuration is required to successfully run gRPC on macOS.

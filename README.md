@@ -7,47 +7,47 @@ A skill tracking app.
 #### Entities
 
 * User
-  + id int
+  + id long
   + accountId string
   + displayName string
   + email string
 
 * SkillGroup
-  + id int
+  + id long
   + name string
   + priority int
-  + skillGroupId int?
+  + skillGroupId long?
   + userId long
 
 * Skill
-  + id int
+  + id long
   + description string?
   + name string
-  + skillGroupId int?
+  + skillGroupId long?
   + calculated: elapsedTime
 
 * Goals
-  + id int
+  + id long
   + achieved bool
   + completionDate Date?
   + description string?
   + expectedCompletionDate Date?
   + name string
-  + skillId int
+  + skillId long
   + calculated: elapsedTime long
 
 * Session
-  + id int
-  + description?
+  + id long
+  + description string?
   + endDate Date?
   + startDate Date?
   + calculated: elapsedTime long
 
 * Attachment
-  + id int
-  + description?
+  + id long
+  + description string?
   + endDate Date?
-  + sessionId int
+  + sessionId long
   + startDate Date?
   + type enum
   + calculated: elapsedTime long

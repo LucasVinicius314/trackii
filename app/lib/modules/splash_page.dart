@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trackii/generated/info/info.pb.dart';
+import 'package:trackii/modules/login_page.dart';
 import 'package:trackii/modules/main_page.dart';
 import 'package:trackii/services/info_service.dart';
 import 'package:trackii/widgets/window_scaffold.dart';
@@ -22,27 +23,29 @@ class _SplashPageState extends State<SplashPage> {
       return;
     }
 
-    await showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Notice'),
-          content: Text(response.message),
-          actions: [
-            TextButton(
-              child: const Text('OK'),
-              onPressed: () {
-                Navigator.of(context).maybePop();
-              },
-            ),
-          ],
-        );
-      },
-    );
+    if (!response.isValid) {
+      await showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Notice'),
+            content: Text(response.message),
+            actions: [
+              TextButton(
+                child: const Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).maybePop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 
   Future<void> _redirect() async {
-    await Navigator.of(context).pushReplacementNamed(MainPage.route);
+    await Navigator.of(context).pushReplacementNamed(LoginPage.route);
   }
 
   @override
