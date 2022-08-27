@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -38,18 +39,24 @@ class _LoginPageState extends State<LoginPage> {
 
     final auth = await oAuthResponse.authentication;
 
-    final response = await AuthService().login(
-      request: LoginRequest(
-        accessToken: auth.accessToken,
-        displayName: oAuthResponse.displayName,
-        email: oAuthResponse.email,
-        accountId: oAuthResponse.id,
-      ),
-    );
+    final userCredential = await FirebaseAuth.instance
+        .signInWithCredential(GoogleAuthProvider.credential(
+      accessToken: auth.accessToken,
+      idToken: auth.idToken,
+    ));
 
-    if (response == null) {
-      return;
-    }
+    // final response = await AuthService().login(
+    //   request: LoginRequest(
+    //     accessToken: auth.accessToken,
+    //     displayName: oAuthResponse.displayName,
+    //     email: oAuthResponse.email,
+    //     accountId: oAuthResponse.id,
+    //   ),
+    // );
+
+    // if (response == null) {
+    //   return;
+    // }
 
     ScaffoldMessenger.of(context)
         .showSnackBar(const SnackBar(content: Text('Login successful')));
